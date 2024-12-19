@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin-top: 80px;
+            background: linear-gradient(-45deg, #1475d6, #1c1c1c);
+        }
+
+        .navbar {
+            width: 100%;
+            height: 80px;
+            background-color: white;
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .navbar .logo span {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .navbar .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin-right: 50px;
+        }
+
+        .navbar .nav-links li {
+            display: inline;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            background-color: rgb(43, 125, 212);
+            font-size: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        .login-form {
+            width: 350px;
+            height: 300px;
+            padding: 20px;
+            background: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .login-form h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-form button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background: rgb(43, 125, 212);
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            background: rgb(57, 16, 206);
+        }
+
+        footer {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(-45deg, #1c1c1c, #101010);
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .navbar {
+            background-color: #222;
+            color: white;
+        }
+
+        .dark-mode .login-form {
+            background-color: #333;
+            color: white;
+        }
+
+        body.dark-mode footer {
+            background-color: #222;
+        }
+
+        .nav-links .dark-mode-toggle {
+            cursor: pointer;
+        }
+
+        .dark-mode .nav-links a {
+            color: #ddd;
+        }
+
+        .dark-mode .nav-links a:hover {
+            background-color: #555;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 10px;
+                background: white;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+            }
+
+            .navbar .nav-links.active {
+                display: flex;
+            }
+
+            .navbar .menu-toggle {
+                display: block;
+            }
+
+            .login-form {
+                width: 250px;
+                height: auto;
+            }
+
+            footer {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" />
+            <span>Expense Tracker</span>
+        </div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links">
+            <li><a href="#" class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Login Form Section -->
+    <div class="login-form">
+        <h2>Login</h2>
+        <form action="index.html" method="GET">
+            <input type="email" name="email" placeholder="Enter your email" required>
+            <input type="password" name="password" placeholder="Enter your password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Expense Tracker. All Rights Reserved.</p>
+        <p>Developed by efshaperveen</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>

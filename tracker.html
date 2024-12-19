@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(-45deg, #1475d6, #1c1c1c);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 200vh;
+        flex-direction: column;
+    }
+
+    .navbar {
+        width: 100%;
+        height: 80px;
+        background-color: white;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    .navbar .logo {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar .logo img {
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .navbar .logo span {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    .navbar .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+        margin-right: 50px;
+    }
+
+    .navbar .nav-links li {
+        display: inline;
+    }
+
+    .navbar .nav-links a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        transition: color 0.3s;
+    }
+
+    .navbar .nav-links a:hover {
+        background-color: rgb(43, 125, 212);
+        font-size: 20px;
+        padding: 10px;
+        border-radius: 10px;
+        color: white;
+    }
+
+    .container {
+        margin-top: 200px;
+        background-color: #e76f51;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 700px;
+
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    form input {
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+
+    }
+
+    form button {
+        padding: 10px;
+        background-color: rgb(43, 125, 212);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    form button:hover {
+        background-color: rgb(58, 73, 172);
+
+    }
+
+    .total-budget {
+        margin-top: 20px;
+        text-align: center;
+        color: white;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+    table th,
+    table td {
+        padding: 10px;
+        border: 1px solid #59493b;
+        text-align: center;
+
+    }
+
+    table th {
+        background-color: #f8f9fa;
+    }
+
+    table td button {
+        padding: 5px 10px;
+        background-color: #eb1369;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    table td button:hover {
+        background-color: #c82333;
+    }
+
+    #expense-list {
+        color: white;
+    }
+
+    footer {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        position: relative;
+        margin-top: 200px;
+        bottom: 0;
+        left: 0;
+    }
+
+    footer p {
+        margin: 5px 0;
+    }
+
+    /* Dark Mode Styles */
+    body.dark-mode {
+        background: linear-gradient(-45deg, #1c1c1c, #101010);
+        color: #e0e0e0;
+    }
+
+    body.dark-mode .navbar {
+        background-color: #222;
+        color: white;
+    }
+
+    body.dark-mode .container {
+        background-color: #333;
+        color: white;
+    }
+
+    .dark-mode table th {
+        color: black;
+    }
+
+    body.dark-mode footer {
+        background-color: #222;
+    }
+
+    .nav-links .dark-mode-toggle {
+        cursor: pointer;
+    }
+
+    .dark-mode .nav-links a {
+        color: #ddd;
+    }
+
+    .dark-mode .nav-links a:hover {
+        background-color: #555;
+    }
+
+    /* Responsive design */
+
+    @media (max-width: 768px) {
+        body {
+            min-height: 100vh;
+        }
+
+        .navbar {
+            flex-direction: column;
+            height: auto;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .navbar .logo {
+            margin-bottom: 10px;
+        }
+
+        .navbar .nav-links {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .container {
+            width: 80%;
+            margin-top: 180px;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        form input {
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        form button {
+            font-size: 16px;
+        }
+
+        .total-budget h2 {
+            font-size: 20px;
+        }
+
+        table {
+            font-size: 12px;
+        }
+
+        table th,
+        table td {
+            padding: 5px;
+        }
+
+        #expense-chart {
+            width: 100%;
+            height: auto;
+        }
+
+        footer {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .navbar {
+            padding: 5px;
+        }
+
+        .navbar .logo span {
+            font-size: 1.2em;
+        }
+
+        h1 {
+            font-size: 20px;
+        }
+
+        .total-budget h2 {
+            font-size: 16px;
+        }
+
+        form input {
+            font-size: 14px;
+            padding: 6px;
+        }
+
+        form button {
+            font-size: 14px;
+        }
+
+        table th,
+        table td {
+            font-size: 8px;
+            padding: 5px;
+        }
+
+        footer {
+            padding: 10px;
+            font-size: 12px;
+        }
+    }
+
+
+
+    /* Hamburger Menu Styles */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        margin-left: 180px;
+    }
+
+    .hamburger span {
+        background-color: black;
+        height: 4px;
+        width: 25px;
+        margin: 3px 0;
+        transition: 0.4s;
+    }
+
+    .nav-links {
+        transition: max-height 0.4s ease-in-out;
+        overflow: hidden;
+        padding: 10px;
+    }
+
+    .nav-links.hidden {
+        max-height: 0;
+        visibility: hidden;
+    }
+
+    .nav-links.visible {
+        max-height: 200px;
+        visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+        .hamburger {
+            display: flex;
+        }
+
+        .nav-links {
+            flex-direction: column;
+            gap: 10px;
+            max-height: 0;
+            visibility: hidden;
+        }
+    }
+</style>
+
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="logo.png" alt="Logo" />
+            <span>Expense Tracker</span>
+        </div>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Expense Tracker</h1>
+        <!-- Expense Form -->
+        <form id="expense-form">
+            <input type="text" id="expense-name" placeholder="Expense Name" required>
+            <input type="number" id="expense-amount" placeholder="Amount" required>
+            <input type="date" id="expense-date" required>
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <!-- Total Expense Display -->
+        <div class="total-budget">
+            <h2>Total Spent: $<span id="total-expense">0</span></h2>
+        </div>
+
+        <!-- Expense Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="expense-list">
+                <!-- Expenses will be displayed here dynamically -->
+            </tbody>
+        </table>
+    </div>
+    <!-- Expense Chart -->
+    <div style="margin-top: 30px; text-align: center;">
+        <h3 style="font-size: 28px; margin-bottom: 20px; color: white;">Expense Distribution</h3>
+        <canvas id="expense-chart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Expense Tracker. All Rights Reserved.</p>
+        <p>Developed by efshaperveen</p>
+    </footer>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('hidden');
+            navLinks.classList.toggle('visible');
+        }
+    </script>
+
+
+    <script src="app.js"></script>
+</body>
+
+</html>

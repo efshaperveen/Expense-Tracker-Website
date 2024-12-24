@@ -58,6 +58,7 @@
             list-style: none;
             display: flex;
             gap: 30px;
+            margin-right: 50px;
         }
 
         .navbar .nav-links li {
@@ -81,8 +82,9 @@
 
         .navbar .menu-toggle {
             display: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
+            font-weight: bold;
         }
 
         .navbar .menu-toggle span {
@@ -95,15 +97,16 @@
             background-color: white;
             position: absolute;
             top: 80px;
-            right: 0;
+            left: 0;
             width: 100%;
+            padding: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .nav-links.mobile-hidden a {
+        /* .nav-links.mobile-hidden a {
             padding: 15px 20px;
             border-bottom: 1px solid #ddd;
-        }
+        } */
 
         .contact {
             margin-top: 100px;
@@ -111,6 +114,7 @@
             padding: 20px;
             width: 90%;
             max-width: 1200px;
+           
         }
 
         .contact .heading {
@@ -251,6 +255,10 @@
                 display: flex;
             }
 
+            .navbar .nav-links a:last-child {
+                border-bottom: none;
+            }
+
             form {
                 width: 95%;
             }
@@ -265,13 +273,13 @@
             <img src="logo.png" alt="Logo" />
             <span>Expense Tracker</span>
         </div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
         <ul class="nav-links">
             <li><a href="#" class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</a></li>
             <li><a href="index.html">Home</a></li>
             <li><a href="contact.html">Contact</a></li>
             <li><a href="login.html">Login</a></li>
         </ul>
-        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
     </nav>
 
     <div class="contact" id="contact">
@@ -295,7 +303,7 @@
 
     <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 Expense Tracker. All Rights Reserved.</p>
+        <p>&copy; Expense Tracker. All Rights Reserved.</p>
         <p>Developed by efshaperveen</p>
     </footer>
 
